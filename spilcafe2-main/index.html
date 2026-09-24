@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spilcaféen</title>
+    <meta
+  name="description"
+  content="Find brætspil, se spilinformation og reservér bord hos Spilcaféen."
+/>
     <link rel="stylesheet" href="app.css" />
     <link
       rel="shortcut icon"
@@ -162,9 +166,10 @@
       <button class="clear-pill" id="clear-filters-pill" type="button">Ryd filtre</button>
     </div>
   
-    <!-- resten af indholdet -->
-    <section id="game-list" class="card-grid"></section>
-  </main>
+  <section aria-labelledby="game-list-heading">
+  <h2 id="game-list-heading" class="game-list-heading">Find dit næste spil</h2>
+  <div id="game-list" class="card-grid"></div>
+</section>
 
     
 

@@ -368,9 +368,9 @@ function gameCard(g) {
   return `
    <article class="card" data-id="${g.id}">
      <div class="thumb">
-       <img src="${g.image}" alt="${escapeHtml(
-    g.title
-  )}" style="object-fit:contain;">
+      <img src="${g.image}" alt="${escapeHtml(
+  g.title
+)}" loading="lazy" style="object-fit:contain;">
        <div class="badges">${badgeAvail}</div>
        <button class="fav ${favActive}" data-fav-id="${
     g.id
@@ -549,7 +549,7 @@ function setupDropdownFilters() {
     document.body.appendChild(floatingMenu);
 
     openDD = dd;
-    
+
     firstOption?.focus();
 
     window.addEventListener("scroll", closeDropdown, {
