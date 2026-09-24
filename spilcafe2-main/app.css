@@ -996,3 +996,30 @@ body {
   outline-offset: 3px;
   border-radius: 4px;
 }
+/* Mobilnavigation */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .home-view {
+    min-height: auto;
+    padding: 120px 20px 60px;
+  }
+
+  .home-content h1 {
+    font-size: 38px;
+  }
+
+  .filterbar {
+    flex-wrap: wrap;
+  }
+
+  .filterbar .filters-row {
+    flex: 1 1 100%;
+  }
+
+  .clear-pill {
+    margin-left: auto;
+  }
+}
