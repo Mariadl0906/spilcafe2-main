@@ -876,3 +876,71 @@ body {
     transition: none !important;
   }
 }
+
+/* =========================================================
+   FORSIDE
+   ========================================================= */
+
+.home-view {
+  min-height: 520px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 70px 24px 100px;
+}
+
+.home-content {
+  max-width: 650px;
+  text-align: center;
+}
+
+.home-content h1 {
+  margin: 0 0 20px;
+  color: var(--brown);
+  font-size: 48px;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.home-content p {
+  margin: 0 auto 30px;
+  max-width: 600px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.home-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  min-width: 180px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--brown);
+  color: #fff;
+  border: 2px solid var(--brown);
+}
+
+.btn-secondary {
+  background: var(--cream);
+  color: var(--brown);
+  border: 2px solid var(--brown);
+}
+
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 4px;
+}
