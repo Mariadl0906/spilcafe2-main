@@ -178,6 +178,16 @@ function bindEvents() {
     openBooking();
   });
 
+  // Reservér bord fra forsiden
+document.getElementById("home-booking-btn")?.addEventListener("click", () => {
+  openBooking();
+});
+
+// Reservér bord fra headeren
+document.getElementById("nav-booking-btn")?.addEventListener("click", () => {
+  openBooking();
+});
+
   els.tabHome?.addEventListener("click", () => {
     if (!bookingView?.hidden) closeBooking();
     SHOW_FAVS = false;
@@ -552,10 +562,7 @@ function setupDropdownFilters() {
       floatingMenu.style.minWidth = "";
     }
     floatingMenu = null;
-    const pill = openDD.querySelector(".pill:not([data-sort])");
-if (pill) {
-  pill.setAttribute("aria-expanded", "false");
-}
+    
     openDD.classList.remove("open");
     openDD = null;
   }

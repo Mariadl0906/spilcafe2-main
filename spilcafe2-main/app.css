@@ -945,3 +945,36 @@ body {
   outline-offset: 4px;
 }
 
+/* Desktop navigation i header */
+.desktop-nav {
+  height: 68px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 40px;
+  padding-right: 60px;
+}
+
+.desktop-nav a,
+.desktop-nav button {
+  background: transparent;
+  border: 0;
+  padding: 10px 4px;
+  color: #fff;
+  font: inherit;
+  font-size: 18px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.desktop-nav a:hover,
+.desktop-nav button:hover {
+  text-decoration: underline;
+}
+
+.desktop-nav a:focus-visible,
+.desktop-nav button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
