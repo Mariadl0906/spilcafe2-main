@@ -533,6 +533,7 @@ function setupDropdownFilters() {
     dd.classList.add("open");
     const menu = dd.querySelector(".dropdown-menu");
     if (!menu) return;
+    const firstOption = menu.querySelector("button");
 
     const r = pill.getBoundingClientRect();
     const w = Math.max(180, r.width);
@@ -548,6 +549,8 @@ function setupDropdownFilters() {
     document.body.appendChild(floatingMenu);
 
     openDD = dd;
+    
+    firstOption?.focus();
 
     window.addEventListener("scroll", closeDropdown, {
       passive: true,
@@ -578,16 +581,18 @@ function setupDropdownFilters() {
     openDD = null;
   }
 
-  // Åbn/luk dropdown (ikke sort)
-  row?.addEventListener("pointerdown", (e) => {
-    const pill = e.target.closest(".filter-dropdown .pill:not([data-sort])");
-    if (!pill) return;
-    e.preventDefault();
-    e.stopPropagation();
-    const dd = pill.closest(".filter-dropdown");
-    if (openDD === dd) closeDropdown();
-    else openDropdown(dd, pill);
-  });
+ // Åbn/luk dropdown (ikke sort)
+row?.addEventListener("click", (e) => {
+  const pill = e.target.closest(".filter-dropdown .pill:not([data-sort])");
+  if (!pill) return;
+  e.preventDefault();
+  e.stopPropagation();
+
+  const dd = pill.closest(".filter-dropdown");
+
+  if (openDD === dd) closeDropdown();
+  else openDropdown(dd, pill);
+});
 
   // Sorteringsknapper
   row?.addEventListener("click", (e) => {
