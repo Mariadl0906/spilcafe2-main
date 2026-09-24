@@ -89,42 +89,69 @@
         </div>
   
         <div class="filter-dropdown">
-          <button class="pill">Spillere ⌄</button>
-          <div class="dropdown-menu">
-            <button data-filter="players" data-value="1-2">1–2</button>
-            <button data-filter="players" data-value="2-4">2–4</button>
-            <button data-filter="players" data-value="4-6">4–6</button>
-            <button data-filter="players" data-value="6-10">6–10</button>
-            <button data-filter="players" data-value="10+">10+</button>
-            <button data-filter="players" data-value="all">Alle</button>
-          </div>
-        </div>
+  <button
+    class="pill"
+    type="button"
+    id="players-filter"
+    aria-expanded="false"
+    aria-controls="players-menu"
+  >
+    Spillere
+  </button>
+
+  <div class="dropdown-menu" id="players-menu">
+    <button data-filter="players" data-value="1-2">1–2</button>
+    <button data-filter="players" data-value="2-4">2–4</button>
+    <button data-filter="players" data-value="4-6">4–6</button>
+    <button data-filter="players" data-value="6-10">6–10</button>
+    <button data-filter="players" data-value="10+">10+</button>
+    <button data-filter="players" data-value="all">Alle</button>
+  </div>
+</div>
   
         <div class="filter-dropdown">
-          <button class="pill">Alder ⌄</button>
-          <div class="dropdown-menu">
-            <button data-filter="age" data-value="3">3+</button>
-            <button data-filter="age" data-value="6">6+</button>
-            <button data-filter="age" data-value="8">8+</button>
-            <button data-filter="age" data-value="10">10+</button>
-            <button data-filter="age" data-value="12">12+</button>
-            <button data-filter="age" data-value="15">15+</button>
-            <button data-filter="age" data-value="18">18+</button>
-            <button data-filter="age" data-value="all">Alle</button>
-          </div>
-        </div>
+  <button
+    class="pill"
+    type="button"
+    id="age-filter"
+    aria-expanded="false"
+    aria-controls="age-menu"
+  >
+    Alder
+  </button>
+
+  <div class="dropdown-menu" id="age-menu">
+    <button data-filter="age" data-value="3">3+</button>
+    <button data-filter="age" data-value="6">6+</button>
+    <button data-filter="age" data-value="8">8+</button>
+    <button data-filter="age" data-value="10">10+</button>
+    <button data-filter="age" data-value="12">12+</button>
+    <button data-filter="age" data-value="15">15+</button>
+    <button data-filter="age" data-value="18">18+</button>
+    <button data-filter="age" data-value="all">Alle</button>
+  </div>
+</div>
   
-        <div class="filter-dropdown">
-          <button class="pill">Varighed ⌄</button>
-          <div class="dropdown-menu">
-            <button data-filter="duration" data-value="0-15">≤ 15 min</button>
-            <button data-filter="duration" data-value="15-30">15–30 min</button>
-            <button data-filter="duration" data-value="30-60">30–60 min</button>
-            <button data-filter="duration" data-value="60-120">60–120 min</button>
-            <button data-filter="duration" data-value="120+">120+ min</button>
-            <button data-filter="duration" data-value="all">Alle</button>
-          </div>
-        </div>
+       <div class="filter-dropdown">
+  <button
+    class="pill"
+    type="button"
+    id="duration-filter"
+    aria-expanded="false"
+    aria-controls="duration-menu"
+  >
+    Varighed
+  </button>
+
+  <div class="dropdown-menu" id="duration-menu">
+    <button data-filter="duration" data-value="0-15">≤ 15 min</button>
+    <button data-filter="duration" data-value="15-30">15–30 min</button>
+    <button data-filter="duration" data-value="30-60">30–60 min</button>
+    <button data-filter="duration" data-value="60-120">60–120 min</button>
+    <button data-filter="duration" data-value="120+">120+ min</button>
+    <button data-filter="duration" data-value="all">Alle</button>
+  </div>
+</div>
   
         <div class="filter-dropdown"><button class="pill" data-sort="rating">Populære</button></div>
         <div class="filter-dropdown"><button class="pill" data-sort="title">A–Å</button></div>

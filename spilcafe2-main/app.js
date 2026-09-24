@@ -173,6 +173,17 @@ function bindEvents() {
     render();
   });
 
+  // Favoritter fra headeren
+document.getElementById("nav-favorites-btn")?.addEventListener("click", () => {
+  SHOW_FAVS = true;
+  setActiveTab(els.tabFav);
+  render();
+
+  document.getElementById("game-list")?.scrollIntoView({
+    behavior: "smooth"
+  });
+});
+
   els.tabRes?.addEventListener("click", () => {
     setActiveTab(els.tabRes);
     openBooking();
