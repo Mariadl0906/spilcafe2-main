@@ -23,7 +23,8 @@
     alt="Spilcaféen logo" class="header-logo" />
 
    </header>
-   
+
+
    <!-- FORSIDE -->
 <section id="home-view" class="home-view">
   <div class="home-content">
@@ -60,8 +61,16 @@
       <div class="filters-row">
         <!-- alle dine filter-dropdowns flyttes herned -->
         <div class="filter-dropdown">
-          <button class="pill">Kategori ⌄</button>
-          <div class="dropdown-menu">
+          <button
+  class="pill"
+  type="button"
+  id="category-filter"
+  aria-expanded="false"
+  aria-controls="category-menu"
+>
+  Kategori
+</button>
+          <div class="dropdown-menu" id="category-menu">
             <button data-filter="genre" data-value="Familie">Familie</button>
             <button data-filter="genre" data-value="Kortspil">Kortspil</button>
             <button data-filter="genre" data-value="Strategi">Strategi</button>

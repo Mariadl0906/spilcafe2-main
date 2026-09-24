@@ -552,6 +552,10 @@ function setupDropdownFilters() {
       floatingMenu.style.minWidth = "";
     }
     floatingMenu = null;
+    const pill = openDD.querySelector(".pill:not([data-sort])");
+if (pill) {
+  pill.setAttribute("aria-expanded", "false");
+}
     openDD.classList.remove("open");
     openDD = null;
   }
