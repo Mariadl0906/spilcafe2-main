@@ -368,7 +368,7 @@ function gameCard(g) {
   return `
    <article class="card" data-id="${g.id}">
      <div class="thumb">
-      <img src="${g.image}" alt="${escapeHtml(
+      <img src="images/${g.image.split("/").pop().replace(".webp", "-thumb.webp")}" alt="${escapeHtml(
   g.title
 )}" loading="lazy" style="object-fit:contain;">
        <div class="badges">${badgeAvail}</div>
