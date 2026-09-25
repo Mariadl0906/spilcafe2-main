@@ -159,6 +159,20 @@ function bindEvents() {
     if (card) openModalById(card.dataset.id);
   });
 
+ // Åbn spilkort med tastatur
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+
+  const card = e.target.closest(".card[data-id]");
+  if (!card) return;
+
+  // Undgå at aktivere kortet, hvis fokus er på favoritknappen
+  if (e.target.closest(".fav")) return;
+
+  e.preventDefault();
+  openModalById(card.dataset.id);
+});
+
   // Tabbar
   els.tabAll?.addEventListener("click", () => {
     if (!bookingView?.hidden) closeBooking();
@@ -407,7 +421,13 @@ function gameCard(g) {
   const badgeAvail = g.available ? `<span class="badge">Ledig</span>` : ``;
 
   return `
-   <article class="card" data-id="${g.id}">
+ <article
+  class="card"
+  data-id="${g.id}"
+  tabindex="0"
+  role="button"
+  aria-label="Åbn ${escapeHtml(g.title)}"
+>
      <div class="thumb">
       <img src="images/${g.image.split("/").pop().replace(".webp", "-thumb.webp")}" alt="${escapeHtml(
   g.title
@@ -461,6 +481,7 @@ function updateFavTabCounter() {
 // MODAL (spildetaljer)
 
 function openModalById(id) {
+
   const g = GAMES.find((x) => String(x.id) === String(id));
   if (!g || !modal) return;
 
@@ -499,10 +520,17 @@ function openModalById(id) {
   rulesContent.classList.remove("open");
   rulesBtn.setAttribute("aria-expanded", "false");
 
-  modal.hidden = false;
-  document.body.style.overflow = "hidden";
-  updateBackIcon();
+modal.hidden = false;
+
+// Flyt tastaturfokus ind i modalvinduet
+const closeButton = modal.querySelector(".modal-close");
+closeButton?.focus();
+
+document.body.style.overflow = "hidden";
+updateBackIcon();
 }
+
+// MODAL (spildetaljer)
 
 function closeModal() {
   if (!modal) return;
@@ -510,6 +538,32 @@ function closeModal() {
   document.body.style.overflow = "";
   updateBackIcon();
 }
+
+// Hold tastaturfokus inde i modalvinduet
+modal?.addEventListener("keydown", (e) => {
+  if (e.key !== "Tab") return;
+
+  const focusableElements = modal.querySelectorAll(
+    'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+  );
+
+  const focusable = Array.from(focusableElements).filter(
+    (el) => !el.hidden && el.offsetParent !== null
+  );
+
+  if (!focusable.length) return;
+
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
+});
 
 // Regler-toggle
 rulesBtn?.addEventListener("click", () => {
@@ -693,8 +747,20 @@ document.addEventListener("click", (e) => {
   }
 
   if (ok) render();
-  closeDropdown();
-  e.stopPropagation();
+
+const activeFilterButton = document.getElementById(
+  {
+    genre: "category-filter",
+    players: "players-filter",
+    age: "age-filter",
+    duration: "duration-filter",
+  }[type]
+);
+
+closeDropdown();
+activeFilterButton?.focus();
+
+e.stopPropagation();
 });
 
   // Klik udenfor lukker
@@ -751,7 +817,8 @@ const booking = {
 function openBooking() {
   if (!bookingView) return;
   document.querySelector("main.page").style.display = "none";
-  bookingView.hidden = false;
+document.getElementById("home-view").style.display = "none";
+bookingView.hidden = false;
   booking.month = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
   booking.step = 1;
   renderBooking();
@@ -764,11 +831,15 @@ function openBooking() {
 
 function closeBooking() {
   if (!bookingView) return;
+
   bookingView.hidden = true;
   document.querySelector("main.page").style.display = "";
+  document.getElementById("home-view").style.display = "";
+
   document
     .querySelectorAll(".tabbar .tab")
     .forEach((t) => t.classList.remove("active"));
+
   document.getElementById("tab-home")?.classList.add("active");
   updateBackIcon();
 }
