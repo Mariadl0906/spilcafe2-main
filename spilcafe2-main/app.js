@@ -173,8 +173,9 @@ function bindEvents() {
     render();
   });
 
-  // Favoritter fra headeren
+// Favoritter fra headeren
 document.getElementById("nav-favorites-btn")?.addEventListener("click", () => {
+  closeBooking();
   SHOW_FAVS = true;
   setActiveTab(els.tabFav);
   render();
@@ -194,9 +195,35 @@ document.getElementById("home-booking-btn")?.addEventListener("click", () => {
   openBooking();
 });
 
+// Find spil fra forsiden
+document.getElementById("home-games-btn")?.addEventListener("click", () => {
+  closeBooking();
+
+  document.getElementById("game-list")?.scrollIntoView({
+    behavior: "smooth"
+  });
+});
+
+// Logo tilbage til forsiden
+document.getElementById("home-logo")?.addEventListener("click", () => {
+  closeBooking();
+
+  document.getElementById("home-view")?.scrollIntoView({
+    behavior: "smooth"
+  });
+});
 // Reservér bord fra headeren
 document.getElementById("nav-booking-btn")?.addEventListener("click", () => {
   openBooking();
+});
+
+// Spil fra headeren
+document.getElementById("nav-games-btn")?.addEventListener("click", () => {
+  closeBooking();
+
+  document.getElementById("game-list")?.scrollIntoView({
+    behavior: "smooth"
+  });
 });
 
   els.tabHome?.addEventListener("click", () => {
@@ -253,13 +280,27 @@ function clearAllFilters() {
   if (els.availableOnly) els.availableOnly.checked = false;
   if (els.sort) els.sort.value = "none";
 
-  // Vis alle igen (fjern fav-filter)
-  SHOW_FAVS = false;
-  els.tabFav?.classList.remove("active");
+// Vis alle igen (fjern fav-filter)
+SHOW_FAVS = false;
+els.tabFav?.classList.remove("active");
 
-  render();
+// Nulstil teksten på filterknapperne
+const filterButtons = {
+  "category-filter": "Kategori",
+  "players-filter": "Spillere",
+  "age-filter": "Alder",
+  "duration-filter": "Varighed",
+};
+
+Object.entries(filterButtons).forEach(([id, label]) => {
+  const button = document.getElementById(id);
+  if (button) {
+    button.textContent = label;
+  }
+});
+
+render();
 }
-
 // FILTER / SORT
 
 const valueOrAll = (el) => (el && el.value ? el.value : "all");
@@ -511,7 +552,16 @@ function setupDropdownFilters() {
         opts.find((o) => o.textContent.toLowerCase() === lower) ||
         opts.find((o) => o.textContent.toLowerCase().includes(lower));
       sel.value = match ? match.value : "all";
-      return true;
+
+const categoryButton = document.getElementById("category-filter");
+
+if (categoryButton) {
+  categoryButton.textContent = match
+    ? `Kategori: ${match.textContent}`
+    : "Kategori";
+}
+
+return true;
     }
     if (type === "players") {
       (els.playersPill || ensureHiddenPill("players-pill")).value = rawValue;
@@ -550,6 +600,8 @@ function setupDropdownFilters() {
 
     openDD = dd;
 
+    pill.setAttribute("aria-expanded", "true");
+
     firstOption?.focus();
 
     window.addEventListener("scroll", closeDropdown, {
@@ -576,9 +628,16 @@ function setupDropdownFilters() {
       floatingMenu.style.minWidth = "";
     }
     floatingMenu = null;
-    
-    openDD.classList.remove("open");
-    openDD = null;
+
+// Fortæl skærmlæseren, at dropdownen er lukket
+const pill = openDD.querySelector(".pill:not([data-sort])");
+
+if (pill) {
+  pill.setAttribute("aria-expanded", "false");
+}
+
+openDD.classList.remove("open");
+openDD = null;
   }
 
  // Åbn/luk dropdown (ikke sort)
@@ -602,15 +661,41 @@ row?.addEventListener("click", (e) => {
     render();
   });
 
-  // Klik på menupunkt
-  document.addEventListener("click", (e) => {
-    const item = e.target.closest(".dropdown-menu button");
-    if (!item) return;
-    const ok = setFilter(item.dataset.filter, item.dataset.value);
-    if (ok) render();
-    closeDropdown();
-    e.stopPropagation();
-  });
+ // Klik på menupunkt
+document.addEventListener("click", (e) => {
+  const item = e.target.closest(".dropdown-menu button");
+  if (!item) return;
+
+  const type = item.dataset.filter;
+  const value = item.dataset.value;
+
+  const ok = setFilter(type, value);
+
+  // Vis det valgte filter på knappen
+  const filterButtons = {
+    genre: { id: "category-filter", label: "Kategori" },
+    players: { id: "players-filter", label: "Spillere" },
+    age: { id: "age-filter", label: "Alder" },
+    duration: { id: "duration-filter", label: "Varighed" },
+  };
+
+  const filter = filterButtons[type];
+
+  if (filter) {
+    const button = document.getElementById(filter.id);
+
+    if (button) {
+      button.textContent =
+        value === "all"
+          ? filter.label
+          : `${filter.label}: ${item.textContent.trim()}`;
+    }
+  }
+
+  if (ok) render();
+  closeDropdown();
+  e.stopPropagation();
+});
 
   // Klik udenfor lukker
   document.addEventListener("pointerdown", (e) => {
